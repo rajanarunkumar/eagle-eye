@@ -5,7 +5,13 @@
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "sockjs-client": "1.1.5",
+    "stompjs": "^2.3.3",
+    "whatwg-fetch": "^2.0.4",
+    "react-websocket": "^2.0.0",
+    "react-strap": "^0.0.1",
+    "bootstrap": "^4.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
