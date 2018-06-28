@@ -37,12 +37,12 @@ public class ImageRecoknizerService {
       result = rekognitionClient.detectLabels(request);
       List<Label> labels = result.getLabels();
       log.info("Detected labels for " + imageLocation);
-      for (Label label: labels) {
+      for (Label label : labels) {
         log.info(label.getName() + ": " + label.getConfidence().toString());
       }
     } catch (AmazonRekognitionException e) {
       e.printStackTrace();
-  }
+    }
 
     return result;
   }
@@ -52,17 +52,21 @@ public class ImageRecoknizerService {
     ByteBuffer imageBytes = getImageBytesFromFileLocation(imageLocation);
     AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.defaultClient();
     DetectFacesRequest request = new DetectFacesRequest()
-            .withImage(new Image()
-                    .withBytes(imageBytes));
+        .withImage(new Image()
+            .withBytes(imageBytes));
     DetectFacesResult result = null;
 
     try {
       result = rekognitionClient.detectFaces(request);
       List<FaceDetail> faceDetails = result.getFaceDetails();
       log.info("Detected facial details for " + imageLocation);
-      for (FaceDetail faceDetail: faceDetails) {
-        log.info(faceDetail.getLandmarks().get(0).getType() + " - X: " + faceDetail.getLandmarks().get(0).getX() +" Y:"+faceDetail.getLandmarks().get(0).getY());
-        log.info(faceDetail.getLandmarks().get(1).getType() + " - X: " + faceDetail.getLandmarks().get(1).getX() +" Y:"+faceDetail.getLandmarks().get(1).getY());
+      for (FaceDetail faceDetail : faceDetails) {
+        log.info(
+            faceDetail.getLandmarks().get(0).getType() + " - X: " + faceDetail.getLandmarks().get(0)
+                .getX() + " Y:" + faceDetail.getLandmarks().get(0).getY());
+        log.info(
+            faceDetail.getLandmarks().get(1).getType() + " - X: " + faceDetail.getLandmarks().get(1)
+                .getX() + " Y:" + faceDetail.getLandmarks().get(1).getY());
       }
     } catch (AmazonRekognitionException e) {
       e.printStackTrace();
