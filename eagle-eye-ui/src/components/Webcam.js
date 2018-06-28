@@ -29,13 +29,13 @@ class Webcam extends Component {
             })
                 .then(this.gotLocalMediaStream).catch(this.handleLocalMediaStreamError)
         });
-        // this.connect();
-        // setInterval(() => {this.setState({counter:this.state.counter +1}); this.takePhoto()},500)
+        this.connect();
     }
 
     handleData(data) {
         // TODO Recieve message and display image on screen
-        console.log(data);
+        let matchedImage = document.getElementById("imageMatch").src = "data:image/jpeg;base64," + data.bytes;
+        this.setState({done:true})
     }
 
     connect() {
@@ -45,10 +45,10 @@ class Webcam extends Component {
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/greetings', function (greeting) {
-                console.log((JSON.parse(greeting.body).content));
-            });
-        });
+            stompClient.subscribe('/topic/images', function (message) {
+                this.handleData(JSON.parse(message.body));
+            }.bind(this));
+        }.bind(this));
     }
 
     gotLocalMediaStream(mediaStream) {
@@ -117,6 +117,7 @@ class Webcam extends Component {
             <div className="App">
                 <div className="row">
                     <video id="camera" autoPlay playsInline>Cam</video>
+                    <img id="imageMatch" src="" alt="" ></img>
                 </div>
                 <div className="row">
                     <button onClick={this.takePhoto}>Capture Target</button>
