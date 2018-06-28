@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Stomp from 'stompjs';
+import {Row, Col} from 'reactstrap';
 import SockJS from 'sockjs-client';
 
 var recordedBlobs = [];
@@ -33,9 +34,7 @@ class Webcam extends Component {
     }
 
     handleData(data) {
-        // TODO Recieve message and display image on screen
-        let matchedImage = document.getElementById("imageMatch").src = "data:image/jpeg;base64," + data.bytes;
-        this.setState({done:true})
+        document.getElementById("imageMatch").src = "data:image/jpeg;base64," + data.bytes;
     }
 
     connect() {
@@ -77,9 +76,9 @@ class Webcam extends Component {
         if(this.checkPhotoDataExists() === true){
             let url = "http://localhost:8080/image/match";
             if (match === false) {
-                let sid = prompt("Please enter the user's SID:");
-                if(sid.length !== 7) {
-                    console.log("SID MUST BE 7 CHARACTERS");
+                let sid = prompt("Please enter the user's Full Name:");
+                if(sid.length < 2) {
+                    console.log("Full name must be entered.");
                     return;
                 }
                 url = "http://localhost:8080/image/s3upload?name=" + sid
@@ -89,10 +88,9 @@ class Webcam extends Component {
             fetch(url, {
                 body: form,
                 credentials: 'same-origin',
-                method: 'POST',
-                mode: 'cors',
+                method: 'POST'
             })
-                .then(response => response.json().then(value => console.log(value)))
+                .then(response => response.json().then(response => {alert(JSON.stringify(response))}));
         } else {
             alert("Photo has not been captured");
             return;
@@ -114,19 +112,23 @@ class Webcam extends Component {
 
     render() {
         return (
-            <div className="App">
-                <div className="row">
-                    <video id="camera" autoPlay playsInline>Cam</video>
-                    <img id="imageMatch" src="" alt="" ></img>
-                </div>
-                <div className="row">
-                    <button onClick={this.takePhoto}>Capture Target</button>
+            <div>
+                    <Row>
+                        <Col>
+                        <img id="imageMatch" src="" alt=""></img>
+                        </Col>
+                        <Col>
+                        <video id="camera" autoPlay playsInline>Cam</video>
+                        </Col>
+                    </Row>
+                <Row>
+                        <button onClick={this.takePhoto}>Capture Target</button>
                     <button onClick={() => this.sendPhotoBlob(false)}>Index Face</button>
                     <button onClick={() => this.sendPhotoBlob(true)}>Check for Match</button>
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                     <canvas id="photo">canvas</canvas>
-                </div>
+                </Row>
             </div>
         );
     }
