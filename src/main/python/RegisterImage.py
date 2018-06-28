@@ -31,7 +31,7 @@ def update_index(tableName, faceId, fullName, s3Key):
   )
 
 
-constantImage = "/Users/arunrajan/Pictures/Picture/Iphone captures/IMG_0190.jpg"
+constantImage = "/Users/arunrajan/Downloads/IMG_0564.jpg"
 print("Printing argument passed ", sys.argv)
 # image = Image.open(sys.argv[1])
 image = Image.open(constantImage)
