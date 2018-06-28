@@ -61,9 +61,17 @@
       <artifactId>aws-java-sdk-rekognition</artifactId>
     </dependency>
     <dependency>
+      <artifactId>aws-java-sdk-sqs</artifactId>
+      <groupId>com.amazonaws</groupId>
+    </dependency>
+    <dependency>
       <groupId>com.github.sarxos</groupId>
       <artifactId>webcam-capture</artifactId>
       <version>0.3.12</version>
+    </dependency>
+    <dependency>
+      <artifactId>aws-java-sdk-lambda</artifactId>
+      <groupId>com.amazonaws</groupId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -125,6 +133,10 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
+    </repository>
+    <repository>
+      <id>xuggle repo</id>
+      <url>http://xuggle.googlecode.com/svn/trunk/repo/share/java/</url>
     </repository>
   </repositories>
 

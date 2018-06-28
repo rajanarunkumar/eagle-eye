@@ -431,3 +431,5 @@ venv/lib/python2.7/sre_parse.pyc
 venv/lib/python2.7/stat.pyc
 venv/lib/python2.7/types.pyc
 venv/lib/python2.7/warnings.pyc
+src/main/java/com/hackathon/eagleeye/processor/
+src/main/resources/xuggle-xuggler-noarch-5.4.jar

@@ -10,7 +10,10 @@ images = [('/Users/arunrajan/Pictures/1600mentzer.jpg', 'Mike Mentzer'),
 # Iterate through list to upload objects to S3
 for image in images:
   file = open(image[0], 'rb')
-  object = s3.Object('empid',
+  object = s3.Object('eagle-eye-validator',
                      'index/' + image[0].lstrip('/Users/arunrajan/Pictures/'))
   ret = object.put(Body=file, Metadata={'FullName': image[1]})
+  # print(s3.Bucket("eagle-eye-validator").download_file('index/1600mentzer.jpg',
+  #                                                      '1600mentzer.jpg'))
+
   print ret
